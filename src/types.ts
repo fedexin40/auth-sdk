@@ -88,6 +88,9 @@ export interface ExternalObtainAccessTokenVariables {
 
 export enum ExternalProvider {
   OpenIDConnect = "mirumee.authentication.openidconnect",
+  OpenIDConnectGoogle = "mirumee.authentication.openidconnect.google",
+  OpenIDConnectFacebook = "mirumee.authentication.openidconnect.facebook",
+  OpenIDConnectApple = "mirumee.authentication.openidconnect.apple",
   SaleorCloud = "cloud_auth.CloudAuthorizationPlugin",
 }
 
