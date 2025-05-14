@@ -14,6 +14,10 @@ export class SaleorAccessTokenStorageHandler {
     return this.storage.getItem(key);
   };
 
+  getExternalAccessToken = () => {
+    return this.storage.getItem("token");
+  };
+
   setAccessToken = (token: string) => {
     const key = getAccessTokenKey(this.prefix);
     return this.storage.setItem(key, token);
@@ -22,5 +26,9 @@ export class SaleorAccessTokenStorageHandler {
   clearAuthStorage = () => {
     const key = getAccessTokenKey(this.prefix);
     return this.storage.removeItem(key);
+  };
+
+  clearExternalAuthStorage = () => {
+    return this.storage.removeItem("token");
   };
 }

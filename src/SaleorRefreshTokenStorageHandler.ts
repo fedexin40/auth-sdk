@@ -58,7 +58,8 @@ export class SaleorRefreshTokenStorageHandler {
 
   /* refresh token */
   getRefreshToken = () => this.storage.getItem(getRefreshTokenKey(this.prefix)) || null;
-
+  getExternalRefreshToken = () => this.storage.getItem("refreshToken") || null;
+  
   setRefreshToken = (token: string) => {
     this.storage.setItem(getRefreshTokenKey(this.prefix), token);
   };

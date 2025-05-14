@@ -216,17 +216,13 @@ export class SaleorAuthClient {
    * @param additionalParams.allowPassingTokenToThirdPartyDomains if set to true, the `Authorization` header will be added to the request even if the token's `iss` and request URL do not match
    */
   fetchWithAuth: FetchWithAdditionalParams = async (input, init, additionalParams) => {
-    const refreshToken = this.refreshTokenStorage?.getRefreshToken();
-
-    if (!this.accessTokenStorage.getAccessToken() && typeof document !== "undefined") {
-      // this flow is used by SaleorExternalAuth
-      const tokenFromCookie = cookie.parse(document.cookie).token ?? null;
-      if (tokenFromCookie) {
-        this.accessTokenStorage.setAccessToken(tokenFromCookie);
-      }
-      document.cookie = cookie.serialize("token", "", { expires: new Date(0), path: "/" });
+    if (!this.accessTokenStorage.getAccessToken() && this.accessTokenStorage.getExternalAccessToken()) {
+      const tokenFromCookie = this.accessTokenStorage.getExternalAccessToken() ?? null;
+      this.accessTokenStorage.setAccessToken(tokenFromCookie || "");
+      const refreshTokenFromCookie = this.refreshTokenStorage?.getExternalRefreshToken() ?? null;
+      this.refreshTokenStorage?.setRefreshToken(refreshTokenFromCookie || "");
     }
-
+    const refreshToken = this.refreshTokenStorage?.getRefreshToken();
     const accessToken = this.accessTokenStorage.getAccessToken();
 
     // access token is fine, add it to the request and proceed
