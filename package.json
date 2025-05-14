@@ -1,6 +1,6 @@
 {
   "name": "@fedexin40/auth-sdk",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Auth SDK for Saleor",
   "sideEffects": false,
   "types": "index.d.ts",
